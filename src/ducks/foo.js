@@ -6,14 +6,10 @@ const FOO = 'FOO';
 // }
 
 function fooActionCreator(payload = []) {
-    console.log('fooActionCreator');
-    return dispatch => {
-        console.log('dispatching');
-        return dispatch({
+    return dispatch => dispatch({
             type: FOO,
             payload,
         });
-    };
 }
 
 function reducer(state = {}, { type, payload }) {

@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 
 import logo from '../logo.svg';
 import '../App.css';
+import '../scss/style.css';
+import Board from './Board.js';
 import { fooActionCreator } from '../ducks/foo.js';
 
 class App extends Component {
     componentDidMount() {
-        console.log('did mount', this.props);
         this.props.dispatch(fooActionCreator());
     }
     render() {
@@ -21,12 +22,13 @@ class App extends Component {
                     To get started, edit <code>src/App.js</code> and save to
                     reload.
                 </p>
+                <Board />
             </div>
         );
     }
 }
 const mapStateToProps = state => ({
-    foo:state.foo,
+    foo: state.foo,
 });
 
 export default connect(mapStateToProps)(App);
