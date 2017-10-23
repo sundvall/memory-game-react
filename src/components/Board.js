@@ -52,15 +52,6 @@ const InfoWrap = () => (
         <ResetWrap />
     </div>
 );
-const Confirm = () => (
-    <div className="confirm_wrap confirm_hide" style={{'display':'block'}}>
-        <div className="confirm_box">
-            <p className="confirm_text">Reset game?</p>
-            <button className="confirm_accept">yes</button>
-            <button className="confirm_cancel">no</button>
-        </div>
-    </div>
-);
 
 // function confirmSize () {
 //      sätter storlek på modalen.
@@ -73,44 +64,61 @@ const Confirm = () => (
 class Board extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { cardheight: '', cardwidth: '', cardscaledheight: '' };
+        this.state = {
+            boardheight: '',
+            cardheight: '',
+            cardwidth: '',
+            cardscaledheight: '',
+        };
         this.handleImageLoaded = this.handleImageLoaded.bind(this);
         this.handleResize = this.handleResize.bind(this);
         this.rescale = this.rescale.bind(this);
+        this.getBoardHeight = this.getBoardHeight.bind(this);
+    }
+    getBoardHeight() {
+        /* on initialization the boardheight is set after the cardsize is updated
+        since the size depends on the cardsize */
+        const boardheight = this.board
+            ? this.board.getBoundingClientRect().height
+            : 60;
+        this.setState({ boardheight });
     }
     rescale(onceH, onceW) {
+        const boardheight = this.board
+            ? this.board.getBoundingClientRect().height
+            : 60;
         const w = this.card ? this.card.getBoundingClientRect().width : 40;
         console.log('rescale: w ', w);
+        console.log('rescale: boardheight ', boardheight);
         const imageH = onceH || this.state.cardheight;
         const imageW = onceW || this.state.cardwidth;
         const cardscaledheight = heightFromAspectRatio(w, imageH, imageW);
-        this.setState({ cardscaledheight });
+        this.setState({ cardscaledheight, boardheight });
     }
     handleResize(/* event */) {
         this.rescale();
     }
     handleImageLoaded({ target: img }) {
-        console.log('handleImageLoaded');
         const cardheight = img.offsetHeight;
         const cardwidth = img.offsetWidth;
         this.setState({ cardheight, cardwidth });
         this.rescale(cardheight, cardwidth);
         window.addEventListener('resize', this.handleResize);
+        setTimeout(this.getBoardHeight, 1);
     }
     render() {
-        const { cardscaledheight } = this.state;
+        const { cardscaledheight, boardheight } = this.state;
         const { cards, cols, confirmreset } = this.props;
         const h = cardscaledheight;
-        const w = 100/(parseInt(cols,10));
+        const w = 100 / parseInt(cols, 10);
         const boardRef = elm => {
             this.board = elm;
         };
         const cardRef = elm => {
             this.card = elm;
         };
-        const cardHeight = `${h}px`;
         const wperc = `${w}%`;
-        console.log('Board:102:cardHeight', cardHeight);
+        console.log('Board:102:boardheight', boardheight);
         return (
             <div ref={boardRef} id="memorygame">
                 <div className="board">
@@ -130,7 +138,7 @@ class Board extends React.Component {
                                 row="i"
                                 col="j"
                                 key={card.id}
-                                style={{"width":wperc}}
+                                style={{ width: wperc }}
                             >
                                 <div className="board_item_content persp">
                                     <div
@@ -153,7 +161,13 @@ class Board extends React.Component {
                     </ul>
                     <InfoWrap />
 
-                    {confirmreset && <Confirm />}
+                    {confirmreset && <div className="confirm_wrap" style={{ height: `${boardheight}px` }}>
+                        <div className="confirm_box" style={{top:`${0.4*boardheight}px`}}>
+                            <p className="confirm_text">Reset game?</p>
+                            <button className="confirm_accept">yes</button>
+                            <button className="confirm_cancel">no</button>
+                        </div>
+                    </div>}
                 </div>
             </div>
         );
