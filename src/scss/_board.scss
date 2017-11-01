@@ -21,14 +21,13 @@ $border_D : 0px dashed green;
 		width:80%;
 		margin:auto;
 	}
-}	
+}
 
 
 #memorygame {
 	position:relative;
 	button.currentfocused {
 	    background-color:yellow;
-		
 	}
  }
 
@@ -37,7 +36,7 @@ $border_D : 0px dashed green;
 	left:0;
 	top:0;
 	width:100%;
-	background-color:rgba(54, 25, 25, .5); 
+	background-color:rgba(54, 25, 25, .5);
 	display:block;
 	.confirm_box {
 		border-radius:3px;
@@ -47,7 +46,7 @@ $border_D : 0px dashed green;
 		max-width:250px;
 		margin:auto;
 		position:absolute;
-			background-color:rgba(255, 255, 255, .8); 
+			background-color:rgba(255, 255, 255, .8);
 	}
 	.confirm_text {
 		text-align:center;
@@ -55,11 +54,11 @@ $border_D : 0px dashed green;
 		line-height:1.4em;
 		border-bottom:1px solid grey;
 		display:block;
-	}	
+	}
 	.confirm_accept,.confirm_cancel {
 		width:50%;
 		height:25px;
-	}	
+	}
 	.confirm_cancel {
 		width:50%;
 	}
@@ -90,7 +89,7 @@ $border_D : 0px dashed green;
 	float:right;
 	.score {
 		width:$score_logo_width;
-		margin:auto;	
+		margin:auto;
 		text-align:center;
 		line-height:40px;
 		font-size:26px;
@@ -99,11 +98,11 @@ $border_D : 0px dashed green;
 		margin: 3px auto 10px auto;
 	}
 	.player_1 {
-		width:$score_logo_width;	
-		margin:auto;	
+		width:$score_logo_width;
+		margin:auto;
 		text-align:center;
-	}	
-}	
+	}
+}
 
 #memorygame {
 	div:focus {
@@ -118,7 +117,7 @@ $border_D : 0px dashed green;
 		width:100%;
 		max-width:$board_max_width;
 		margin:auto;
-	}	
+	}
 	.board_items {
 		display:block;
 		overflow:hidden;
@@ -129,14 +128,14 @@ $border_D : 0px dashed green;
 			border:$border_A;
 			float:left;
 			overflow:hidden;
-			displaty:block;
+			display:block;
 			.board_item_content {
+				display: block;
 				border:$border_B;
 				width:100%;
 				overflow:hidden;
 				position:relative;
-			}	
+			}
 		}
 	}
 }
-	

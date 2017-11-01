@@ -1,8 +1,8 @@
 /*reset*/
 #memorygame,
-#memorygame a, 
-#memorygame article, 
-#memorygame button, 
+#memorygame a,
+#memorygame article,
+#memorygame button,
 #memorygame div,
 #memorygame canvas,
 #memorygame h1,
@@ -16,7 +16,7 @@
 #memorygame nav,
 #memorygame ol,
 #memorygame p,
-#memorygame span, 
+#memorygame span,
 #memorygame ul,
 #memorygame video {
 	margin: 0;
@@ -30,5 +30,8 @@
 	list-style-type: none !important;
 	text-decoration: none;
 	user-select: none;
+}
+#memorygame button {
+	background: none;
 }
 /*reset end*/

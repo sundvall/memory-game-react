@@ -84,16 +84,15 @@ class Board extends React.Component {
         this.setState({ boardheight });
     }
     rescale(onceH, onceW) {
-        const boardheight = this.board
-            ? this.board.getBoundingClientRect().height
-            : 60;
+        // const boardheight = this.board
+        //     ? this.board.getBoundingClientRect().height
+        //     : 60;
         const w = this.card ? this.card.getBoundingClientRect().width : 40;
-        console.log('rescale: w ', w);
-        console.log('rescale: boardheight ', boardheight);
         const imageH = onceH || this.state.cardheight;
         const imageW = onceW || this.state.cardwidth;
         const cardscaledheight = heightFromAspectRatio(w, imageH, imageW);
-        this.setState({ cardscaledheight, boardheight });
+        this.setState({ cardscaledheight });
+        this.getBoardHeight();
     }
     handleResize(/* event */) {
         this.rescale();
@@ -108,7 +107,7 @@ class Board extends React.Component {
     }
     render() {
         const { cardscaledheight, boardheight } = this.state;
-        const { cards, cols, confirmreset } = this.props;
+        const { cards, cols, confirmreset, onClick } = this.props;
         const h = cardscaledheight;
         const w = 100 / parseInt(cols, 10);
         const boardRef = elm => {
@@ -118,7 +117,6 @@ class Board extends React.Component {
             this.card = elm;
         };
         const wperc = `${w}%`;
-        console.log('Board:102:boardheight', boardheight);
         return (
             <div ref={boardRef} id="memorygame">
                 <div className="board">
@@ -140,7 +138,7 @@ class Board extends React.Component {
                                 key={card.id}
                                 style={{ width: wperc }}
                             >
-                                <div className="board_item_content persp">
+                                <button className="board_item_content persp" onClick={onClick}>
                                     <div
                                         ref={cardRef}
                                         className="card pres3d"
@@ -155,19 +153,27 @@ class Board extends React.Component {
                                             style={styleBg(h)}
                                         />
                                     </div>
-                                </div>
+                                </button>
                             </li>
                         ))}
                     </ul>
                     <InfoWrap />
 
-                    {confirmreset && <div className="confirm_wrap" style={{ height: `${boardheight}px` }}>
-                        <div className="confirm_box" style={{top:`${0.4*boardheight}px`}}>
-                            <p className="confirm_text">Reset game?</p>
-                            <button className="confirm_accept">yes</button>
-                            <button className="confirm_cancel">no</button>
+                    {confirmreset && (
+                        <div
+                            className="confirm_wrap"
+                            style={{ height: `${boardheight}px` }}
+                        >
+                            <div
+                                className="confirm_box"
+                                style={{ top: `${0.4 * boardheight}px` }}
+                            >
+                                <p className="confirm_text">Reset game?</p>
+                                <button className="confirm_accept">yes</button>
+                                <button className="confirm_cancel">no</button>
+                            </div>
                         </div>
-                    </div>}
+                    )}
                 </div>
             </div>
         );
