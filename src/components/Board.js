@@ -130,7 +130,7 @@ class Board extends React.Component {
                             />
                         )}
                         <div />
-                        {cards.map(card => (
+                        {cards && cards.map(card => (
                             <li
                                 className="board_item"
                                 row="i"
